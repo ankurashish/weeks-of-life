@@ -1,14 +1,15 @@
-// /client/src/App.jsx
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Redirector from "./components/Redirector";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Redirector />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route
@@ -17,17 +18,6 @@ function App() {
             <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
-          }
-        />
-        {/* Redirect root to login or dashboard */}
-        <Route
-          path="/"
-          element={
-            localStorage.getItem("token") ? (
-              <Navigate to="/dashboard" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
           }
         />
       </Routes>
